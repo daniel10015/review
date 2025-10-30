@@ -13,6 +13,16 @@ void remove_if_exist(char* str, char c)
   }
 }
 
+// return true if it exist, false if not. Will remove if true
+int remove_from_start(char* str, char c)
+{
+  if(*str == c) {
+    *str = '\0';
+    return 1;
+  } 
+  return 0;
+}
+
 // return true if a subtr of str matches any char* in cond
 int keep(char* str, char* cond[], int size)
 {
@@ -53,7 +63,10 @@ int main(int argc, char* argv[])
       //rhs = strtok(NULL, ";"); // why am I using a semi-colon? Is there a better way to do this?
       // Yes, there is! 
       rhs = lhs + strlen(lhs) + 2; // null term is only on first char in tok, we need to skip the entire tok though
-      lhs = strtok(lhs, " "); // remove whitespace
+      // remove whitespace
+      while(remove_from_start(lhs, ' ')) {
+        lhs++;
+      }
       printf("lhs: %s\n", lhs);
       printf("rhs: %s\n", rhs);
       printf("----------\n");
