@@ -36,9 +36,6 @@ int main(int argc, char* argv[])
   // Why do we do this?
   int size_of_cond = sizeof(cond)/sizeof(char*);
 
-  printf("%ld", sizeof(cond)/sizeof(char*));
-  fflush(stdout);
-
   while(fgets(buf, buf_size, file)) {
     // filter buf 
     // It might also be a good idea to skip or halt when a comment reach
@@ -50,11 +47,13 @@ int main(int argc, char* argv[])
       // Thanks student in my 1030am T group for showing this to me
       char* lhs;
       char* rhs;
-      char* tok = " = ";
+      char* tok = "=";
+
       lhs = strtok(buf, tok);
       //rhs = strtok(NULL, ";"); // why am I using a semi-colon? Is there a better way to do this?
       // Yes, there is! 
-      rhs = buf + strlen(buf) + sizeof(tok); // null term is only on first char in tok, we need to skip the entire tok though
+      rhs = lhs + strlen(lhs) + 2; // null term is only on first char in tok, we need to skip the entire tok though
+      lhs = strtok(lhs, " "); // remove whitespace
       printf("lhs: %s\n", lhs);
       printf("rhs: %s\n", rhs);
       printf("----------\n");
